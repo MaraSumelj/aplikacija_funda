@@ -2,14 +2,14 @@
 	<aside class="col-md-4">
 		<section class="user_info">
 			<h1><%= @page.name %></h1>
-			<span><b>Microposts:</b> <%= @page.microposts.count %></span>
+			<span><b>Objave:</b> <%= @page.microposts.count %></span>
 		</section>
 		<section class="stats">
 			<%= render 'shared/status_follower' %>
 		</section>
 	</aside>
 	<div class="col-md-8">
-		<h3><%= @title %></h3>
+		<h3>Pratitelji</h3>
 
 		<% if @users.any? %>
 			<ul class="users">
@@ -17,6 +17,11 @@
 				<li>
 				<%= user.name%>
 				<%= link_to gravatar_for(user, size: 40), user %>
+				<% if current_user.admin? && !current_user?(user) %>
+		
+					| <%= link_to "blokiraj", @page.passive_relationships.find_by(follower_id: user.id,followed_id: @page.id), method: :delete,data: { confirm: "Jeste sigurni?" } %>
+				<% end %>	
+
 			<% end %>
 			</ul>
 		<% end %>

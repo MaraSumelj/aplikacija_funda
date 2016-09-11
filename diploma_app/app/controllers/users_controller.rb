@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def create
 	@user = User.new(user_params)
 	if @user.save
-		flash[:success] = "Welcome to the Funda!"
+		flash[:success] = "Dobrodošli!"
 		log_in @user
 		remember @user
 		redirect_to @user
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def destroy
 	User.find(params[:id]).destroy
-	flash[:success] = "User deleted"
+	flash[:success] = "Izbrisan korisnik!"
 	redirect_to users_url
   end
 
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def update
 	@user = User.find(params[:id])
 	if @user.update_attributes(user_params)
-		flash[:success] = "Profile updated"
+		flash[:success] = "Ažurirano!"
 		redirect_to @user
 	else
 		render 'edit'
@@ -48,7 +48,6 @@ class UsersController < ApplicationController
   end
 
   def following
-  	@title= "Following"
 	@user= User.find(params[:id])
 	@pages = @user.following.paginate(page: params[:page])
 	render 'show_following'

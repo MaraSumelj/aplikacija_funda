@@ -9,7 +9,8 @@ class MicropostsController < ApplicationController
 			flash[:success] = "Micropost created!"
 			redirect_to root_url
 		else
-			render 'static_pages/help'
+			@page = Page.find_by(id: current_page_id)
+			redirect_to @page
 		end
 	end
 

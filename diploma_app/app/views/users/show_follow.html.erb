@@ -13,6 +13,10 @@
 		<% if @pages.any? %>
 			<% @pages.each do |page| %>
 			<%= link_to  page %>
+			<% if 1  %>
+		
+					| <%= link_to "prestani pratiti", @page.passive_relationships.find_by(follower_id: user.id,followed_id: @page.id), method: :delete,data: { confirm: "Jeste sigurni?" } %>
+				<% end %>	
 			<% end %>
 			</div>
 		<% end %>

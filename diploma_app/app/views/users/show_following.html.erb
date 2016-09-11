@@ -1,4 +1,3 @@
-<% provide(:title, @title) %>
 <div class="row">
 	<aside class="col-md-4">
 		<section class="user_info">
@@ -12,14 +11,18 @@
 		</section>
 	</aside>
 	<div class="col-md-8">
-		<h3><%= @title %></h3>
+		<h3> Pratim </h3>
 
 		<% if @pages.any? %>
 			<ul class="pages">
 			<% @pages.each do |page| %>
 				<li>
-				<%= page.name%>
-				<%= link_to 'see', page %>
+				<%= link_to page.name, page %>
+
+				<% if current_user?(@user)  %>
+		
+					| <%= link_to "prestani pratiti", @user.active_relationships.find_by(followed_id: page.id), method: :delete,data: { confirm: "Jeste sigurni?" } %>
+				<% end %>	
 			<% end %>
 			</ul>
 		<% end %>

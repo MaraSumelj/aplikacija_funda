@@ -1,19 +1,19 @@
 <li id="micropost-<%= micropost.id %>">
 	<%= link_to gravatar_for(micropost.user, size: 30), micropost.user %>
 	<span class="user"><%= link_to micropost.user.name, micropost.user %></span>
-	<span>posted at </span>
+	<span>objavio je na stranici </span>
 	<span class="page"><%= link_to micropost.page.name, micropost.page %></span>
 	<span class="content"><%= micropost.content %></span>
 	<% if micropost.attachment? %>
 		<span>See file: </span>
-		<%= link_to "Download", micropost.attachment_url %>
+		<%= link_to "Preuzmi", micropost.attachment_url %>
 	<% end %>
 	<span class="timestamp">
-	Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+	Stvoreno <%= time_ago_in_words(micropost.created_at) %> ago.
 	</span>
-	<% if current_user?(micropost.user) %>
-		| <%= link_to "delete", micropost, method: :delete,
-		data: { confirm: "You sure?" } %>
+	<% if current_user?(micropost.user) || admin? %>
+		| <%= link_to "obriši", micropost, method: :delete,
+		data: { confirm: "Jeste sigurni da želite ukloniti post?" } %>
 	<% end %>
 </li>
 
